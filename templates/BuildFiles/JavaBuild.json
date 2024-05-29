@@ -1,0 +1,5 @@
+{
+    "JavaVersion": "21",
+    "JarAddress": "/main",
+    "Port": 8080
+}

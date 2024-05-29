@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ Depl }}{% if KubeAnnotations %}
+  annotations: 
+    {% for key, val in KubeAnnotations %}{{ key }}: "{{ val }}"
+    {% endfor %}{% endif %}
+spec:
+  replicas: {{ Replicas }}
+  selector:
+    matchLabels: 
+      app: {{ Depl }}
+  template:
+    metadata:
+      labels:
+        app: {{ Depl }}
+    spec:
+      containers:
+        - name: {{ ServiceName }}
+          image: {{ DockerImageName }}
+          ports:
+            - containerPort: {{ Port }}{% if Dockerfile.EnvironmentVariables %}
+          env:
+          {% for key,value in Dockerfile.EnvironmentVariables %}
+            - name: {{ key }}
+              value: {{ value }}
+          {% endfor %}{% endif %}
+          {% if KubeResources %}
+          resources:
+            requests:
+              memory: "{{ KubeResources.Requests.Memory }}"
+              cpu: "{{ KubeResources.Requests.CPU }}"
+            limits:
+              memory: "{{ KubeResources.Limits.Memory }}"
+              cpu: "{{ KubeResources.Limits.CPU }}"
+          {% endif %}

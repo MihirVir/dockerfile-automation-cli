@@ -1,0 +1,25 @@
+# upload your secrets on github if not uploaded
+name: CI/CD # CHANGE: change this to your service name
+on:
+  push:
+    branches:
+      - main  # Change to your default branch if different
+    paths:
+      - "." # if you want to watch over some other dir use dirname/**
+
+defaults:
+  run:
+    working-directory: . # Change it to ur frontend dir or backend dir
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Installing Dependencies
+        run: npm install # CHANGE: (if you are using any other lang/framework its required to change)
+      - name: Building
+        run: npm run build # CHANGE 
+      - name: Testing
+        run: npm run test # CHANGE

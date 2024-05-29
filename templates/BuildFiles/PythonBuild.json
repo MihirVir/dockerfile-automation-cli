@@ -1,0 +1,7 @@
+{
+    "Dockerfile": {
+        "InstallCommands": ["--no-cache-dir Flask", "pika", "jsonify"]
+    },
+    "Port": 8090,
+    "Filename": "app.py"
+}
