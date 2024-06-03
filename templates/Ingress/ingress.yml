@@ -14,9 +14,8 @@ spec:
   # ADD INGRESSCLASSNAME FIELD
   rules:
     - http:
-        paths:
-          {% for path in SrvPath %}
-          - path: /{{ path.name }}/?(.*)
+        paths: {% for path in SrvPath %}
+          - path: /{{ path.name }}/?(.*) # /?(.*) is a regex please remove it if u don't want to use it 
             pathType: ImplementationSpecific
             backend:
               service:
